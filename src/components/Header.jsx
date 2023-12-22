@@ -1,13 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
+  const state = useSelector((store) => store.basketReducer);
+  const total = state.basket.reduce((total, i) => total + i.amount, 0);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           E-Ticaret
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -25,9 +28,9 @@ const Header = () => {
               <NavLink to="/">Anasayfa</NavLink>
             </li>
 
-            <li className="nav-item">
+            <li className="nav-item mx-lg-4">
               <NavLink to="/basket">
-                Sepetim <span className=" mx-2 badge bg-danger">3</span>
+                Sepetim <span className=" mx-2 badge bg-danger">{total}</span>
               </NavLink>
             </li>
           </ul>
